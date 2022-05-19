@@ -16,7 +16,7 @@ public class MoedaController {
 	private MoedaService moedaService;
 	
 	@GetMapping(value = "/listarMoedas")
-	public Moeda getMoedas() throws Exception{
+	public List<Moeda> getMoedas() {
 		
 		return moedaService.getMoedas();
 	}

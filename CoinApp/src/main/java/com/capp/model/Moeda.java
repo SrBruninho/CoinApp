@@ -1,13 +1,20 @@
 package com.capp.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Moeda {
+public class Moeda implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@JsonProperty(value="code")
 	private String code;
@@ -25,8 +32,12 @@ public class Moeda {
 	private BigDecimal pctChange;
 	@JsonProperty(value="bid")
 	private BigDecimal bid;
-	@JsonProperty(value="timestamp")
-	private LocalDate timestamp;
+	@JsonProperty(value="create_date")
+	private LocalDateTime create_date;
+	
+	@JsonProperty("Moedas")
+	private List<Moeda> lsMoedas;
+	
 	public String getCode() {
 		return code;
 	}
@@ -75,15 +86,15 @@ public class Moeda {
 	public void setBid(BigDecimal bid) {
 		this.bid = bid;
 	}
-	public LocalDate getTimestamp() {
-		return timestamp;
+	public LocalDateTime getCreateDate() {
+		return create_date;
 	}
-	public void setTimestamp(LocalDate timestamp) {
-		this.timestamp = timestamp;
+	public void setCreateDate(LocalDateTime create_date) {
+		this.create_date = create_date;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(bid, code, codein, high, low, name, pctChange, timestamp, varBid);
+		return Objects.hash(bid, code, codein, high, low, name, pctChange, create_date, varBid);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -97,13 +108,13 @@ public class Moeda {
 		return Objects.equals(bid, other.bid) && Objects.equals(code, other.code)
 				&& Objects.equals(codein, other.codein) && Objects.equals(high, other.high)
 				&& Objects.equals(low, other.low) && Objects.equals(name, other.name)
-				&& Objects.equals(pctChange, other.pctChange) && Objects.equals(timestamp, other.timestamp)
+				&& Objects.equals(pctChange, other.pctChange) && Objects.equals(create_date, other.create_date)
 				&& Objects.equals(varBid, other.varBid);
 	}
 	@Override
 	public String toString() {
 		return "Moeda [code=" + code + ", codein=" + codein + ", name=" + name + ", high=" + high + ", low=" + low
-				+ ", varBid=" + varBid + ", pctChange=" + pctChange + ", bid=" + bid + ", timestamp=" + timestamp + "]";
+				+ ", varBid=" + varBid + ", pctChange=" + pctChange + ", bid=" + bid + ", timestamp=" + create_date + "]";
 	}
 	
 	
