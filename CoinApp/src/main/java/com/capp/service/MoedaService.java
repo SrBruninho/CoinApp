@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.capp.exception.MoedaNotFoundException;
 import com.capp.model.Moeda;
 import com.capp.utils.Constants;
 import com.capp.utils.Util;
@@ -28,10 +30,17 @@ public class MoedaService {
 	}
 	
 	public Moeda converterMoeda(String from, String to) {
-        ResponseEntity<?> response = 
-        		restTemplate.getForEntity(Constants.URI_API_CONVERTE+from+"-"+to , Object.class);
-		HashMap<Object, Object> map = (HashMap<Object, Object>) response.getBody();   
-
+		ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		try {
+				response = restTemplate.getForEntity(
+					Constants.URI_API_CONVERTE+from+"-"+to,
+					Object.class);
+		}
+		catch (Exception e) {
+			throw new MoedaNotFoundException("Moedas não encontradas: " + from + " | " + to);
+		}
+        
+		HashMap<Object, Object> map = (HashMap<Object, Object>) response.getBody(); 
 
 		return Util.converterEntradaAPIToMoeda(map);
 	}
