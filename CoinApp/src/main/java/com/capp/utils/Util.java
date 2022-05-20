@@ -1,7 +1,5 @@
 package com.capp.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +8,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.apache.el.lang.ELArithmetic.BigDecimalDelegate;
-
 import com.capp.model.Moeda;
 
 public class Util {
+	
+	@SuppressWarnings("unchecked")
 	public static List<Moeda> converterEntradaAPIToList(HashMap<Object, Object> p_hashMap)   {
 		
 		List<Moeda> listaDeMoedas = new ArrayList<Moeda>();
@@ -51,6 +49,7 @@ public class Util {
 		return listaDeMoedas;
 	}
 	
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static Moeda converterEntradaAPIToMoeda(HashMap<Object, Object> p_hashMap)   {
 		Moeda moeda = new Moeda();
 		

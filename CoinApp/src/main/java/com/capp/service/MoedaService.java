@@ -20,6 +20,7 @@ public class MoedaService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@SuppressWarnings("unchecked")
 	public List<Moeda> getMoedas(){
 				 
         ResponseEntity<?> response = restTemplate.getForEntity(Constants.URI_API_RETORNA_TUDO, Object.class);
@@ -29,6 +30,7 @@ public class MoedaService {
  
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Moeda converterMoeda(String from, String to) {
 		ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		try {
