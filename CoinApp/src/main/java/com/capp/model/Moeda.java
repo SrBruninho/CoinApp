@@ -2,11 +2,12 @@ package com.capp.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Moeda implements Serializable {
@@ -18,20 +19,34 @@ public class Moeda implements Serializable {
 	
 	@JsonProperty(value="code")
 	private String code;
+	
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(value="codein")
 	private String codein;
+	
 	@JsonProperty(value="name")
 	private String name;
+	
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(value="high")
 	private BigDecimal high;
+	
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(value="low")
 	private BigDecimal low;
+	
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(value="varBid")
 	private BigDecimal varBid;
+	
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(value="pctChange")
 	private BigDecimal pctChange;
+	
 	@JsonProperty(value="bid")
 	private BigDecimal bid;
+	
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(value="create_date")
 	private LocalDateTime create_date;
 	

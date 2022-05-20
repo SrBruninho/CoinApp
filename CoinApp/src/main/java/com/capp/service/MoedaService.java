@@ -9,22 +9,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.capp.model.Moeda;
+import com.capp.utils.Constants;
 import com.capp.utils.Util;
 
 @Service
 public class MoedaService {
-
-	static String URI_API_EXTERNA = "https://economia.awesomeapi.com.br/xml/all";
 
 	@Autowired
 	private RestTemplate restTemplate;
 	
 	public List<Moeda> getMoedas(){
 				 
-        ResponseEntity<?> response = restTemplate.getForEntity(URI_API_EXTERNA, Object.class);
-		HashMap<Object, Object> map = (HashMap<Object, Object>) response.getBody();        
-		
-		return Util.converterEntradaAPI(map);
+        ResponseEntity<?> response = restTemplate.getForEntity(Constants.URI_API_RETORNA_TUDO, Object.class);
+		HashMap<Object, Object> map = (HashMap<Object, Object>) response.getBody();   
+				
+		return Util.converterEntradaAPIToList(map); 
  
+	}
+	
+	public Moeda converterMoeda(String from, String to) {
+        ResponseEntity<?> response = 
+        		restTemplate.getForEntity(Constants.URI_API_CONVERTE+from+"-"+to , Object.class);
+		HashMap<Object, Object> map = (HashMap<Object, Object>) response.getBody();   
+
+
+		return Util.converterEntradaAPIToMoeda(map);
 	}
 }
