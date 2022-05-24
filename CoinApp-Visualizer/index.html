@@ -5,7 +5,7 @@
 <script>
     async function getContentAPI(){
         try{
-            const responseAPI = await fetch('http://localhost:8100/listarMoedas')
+            const responseAPI = await fetch('http://localhost:8765/COIN-APP/listarMoedas')
             const dataAPI = await responseAPI.json()
 
             listarMoedas(dataAPI)
