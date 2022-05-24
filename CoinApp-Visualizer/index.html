@@ -2,4 +2,28 @@
 <main></main>
 </body>
 
-<script></script>
+<script>
+    async function getContentAPI(){
+        try{
+            const responseAPI = await fetch('http://localhost:8100/listarMoedas')
+            const dataAPI = await responseAPI.json()
+
+            listarMoedas(dataAPI)
+        }catch( error ){
+            console.log( "GetContentAPI | ", error );
+        }
+    }
+
+    getContentAPI()
+
+    function listarMoedas(dados){
+        let output = ''
+        for( let dado of dados){
+            output +=`<li>conversão:${dado.name} | Valor: ${dado.bid}</li>`
+        }
+
+        document.querySelector('main').innerHTML = output
+
+    }
+
+</script>
