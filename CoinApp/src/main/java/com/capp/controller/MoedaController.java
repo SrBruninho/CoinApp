@@ -22,8 +22,8 @@ public class MoedaController {
 		return moedaService.getMoedas();
 	}
 	
-	@GetMapping(value = "/converter/{from}/{to}")
-	public Moeda converterMoeda(@PathVariable String from, @PathVariable String to) {
-		return moedaService.converterMoeda(from,to);
+	@GetMapping(value = "/converter/{from}/{to}/{qtd}")
+	public Moeda converterMoeda(@PathVariable String from, @PathVariable String to, @PathVariable int qtd) {
+		return moedaService.converterMoeda(from,to,qtd);
 	}
 }

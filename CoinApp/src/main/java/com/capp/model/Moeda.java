@@ -50,6 +50,10 @@ public class Moeda implements Serializable {
 	@JsonProperty(value="create_date")
 	private LocalDateTime create_date;
 	
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(value="total")
+	private BigDecimal total;
+	
 	@JsonProperty("Moedas")
 	private List<Moeda> lsMoedas;
 	
@@ -106,6 +110,14 @@ public class Moeda implements Serializable {
 	}
 	public void setCreateDate(LocalDateTime create_date) {
 		this.create_date = create_date;
+	}
+	
+	
+	public BigDecimal getTotal() {
+		return total;
+	}
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 	@Override
 	public int hashCode() {
