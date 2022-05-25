@@ -28,4 +28,11 @@ public class MoedaController {
 	public Moeda converterMoeda(@PathVariable String from, @PathVariable String to, @PathVariable int qtd) {
 		return moedaService.converterMoeda(from,to,qtd);
 	}
+
+	@GetMapping(value = "/moedasDisponiveis")
+	public List<String> getMoedasDisponiveis() {
+		return moedaService.getMoedasDisponiveis();
+	}
+	
+	
 }

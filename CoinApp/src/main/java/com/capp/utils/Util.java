@@ -12,7 +12,6 @@ import com.capp.model.Moeda;
 
 public class Util {
 	
-	@SuppressWarnings("unchecked")
 	public static List<Moeda> converterEntradaAPIToList(HashMap<Object, Object> p_hashMap)   {
 		
 		List<Moeda> listaDeMoedas = new ArrayList<Moeda>();
@@ -47,6 +46,17 @@ public class Util {
 		});
 		
 		return listaDeMoedas;
+	}
+	
+	public static List<String> converterMoedasDisponiveisAPIToList(HashMap<String, String> p_hashMap)   {
+		
+		List<String> listaDeMoedas = new ArrayList<String>();
+		
+		p_hashMap.entrySet().forEach(entry ->{
+			listaDeMoedas.add(entry.getValue());
+			});
+		
+		return listaDeMoedas.stream().sorted().toList();
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })

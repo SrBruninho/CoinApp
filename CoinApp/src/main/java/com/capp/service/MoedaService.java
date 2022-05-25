@@ -46,4 +46,12 @@ public class MoedaService {
 
 		return Util.converterEntradaAPIToMoeda(map,qtd);
 	}
+	
+	public 	List<String> getMoedasDisponiveis(){
+		 ResponseEntity<?> response = restTemplate.getForEntity(Constants.URI_API_RETORNA_MOEDAS_DISPONIVEIS, Object.class);
+			HashMap<String, String> map = (HashMap<String, String>) response.getBody();   
+					
+			return Util.converterMoedasDisponiveisAPIToList(map); 
+	}
+
 }
