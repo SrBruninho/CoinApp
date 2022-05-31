@@ -1,7 +1,10 @@
 package com.capp.service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,11 +50,11 @@ public class MoedaService {
 		return Util.converterEntradaAPIToMoeda(map,qtd);
 	}
 	
-	public 	List<String> getMoedasDisponiveis(){
-		 ResponseEntity<?> response = restTemplate.getForEntity(Constants.URI_API_RETORNA_MOEDAS_DISPONIVEIS, Object.class);
-			HashMap<String, String> map = (HashMap<String, String>) response.getBody();   
-					
-			return Util.converterMoedasDisponiveisAPIToList(map); 
+	public HashMap<String,String> getMoedasDisponiveis(){
+		ResponseEntity<?> response = restTemplate.getForEntity(Constants.URI_API_RETORNA_MOEDAS_DISPONIVEIS, Object.class);
+		HashMap<String, String> map = (HashMap<String, String>) response.getBody();   
+		
+		return Util.ordenarHashMap(map);
 	}
 
 }

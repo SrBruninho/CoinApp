@@ -1,6 +1,8 @@
 package com.capp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.SortedSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +32,7 @@ public class MoedaController {
 	}
 
 	@GetMapping(value = "/moedasDisponiveis")
-	public List<String> getMoedasDisponiveis() {
+	public HashMap<String,String> getMoedasDisponiveis() {
 		return moedaService.getMoedasDisponiveis();
 	}
 	

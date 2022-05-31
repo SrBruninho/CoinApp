@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import com.capp.model.Moeda;
 
@@ -48,15 +52,18 @@ public class Util {
 		return listaDeMoedas;
 	}
 	
-	public static List<String> converterMoedasDisponiveisAPIToList(HashMap<String, String> p_hashMap)   {
+	public static HashMap<String,String> ordenarHashMap(HashMap<String, String> p_hashMap)   {
 		
-		List<String> listaDeMoedas = new ArrayList<String>();
-		
-		p_hashMap.entrySet().forEach(entry ->{
-			listaDeMoedas.add(entry.getValue());
-			});
-		
-		return listaDeMoedas.stream().sorted().toList();
+		return p_hashMap.entrySet()
+		.stream()
+		.sorted( Map.Entry.comparingByValue() )
+		.collect(Collectors
+				.toMap(
+						Map.Entry::getKey,
+						Map.Entry::getValue,
+						(oldValue,newValue) -> oldValue, LinkedHashMap::new
+					  )
+				);		
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
