@@ -1,25 +1,33 @@
-<head><link rel="stylesheet" href="/css/mystyle.css">
+<head><link rel="stylesheet" href="css/mystyle.css">
 </head>
 <body>
 <main></main>
-<select name="moedaBase" id="moedaBase"></select>
-<input type="text" id="moedaFrom" name="moedaFrom"> 
-<select name="moedaAConverter" id="moedaAConverter"></select>
-<input type="text" id="moedaTo" name="moedaTo"><br><br>
+    <select name="moedaBase" id="moedaBase"></select>
+    <input type="text" id="moedaFrom" name="moedaFrom"> 
+    <select name="moedaAConverter"  id="moedaAConverter"></select>
+    <input type="text" id="moedaTo" name="moedaTo"><br><br>
+
 </body>
 
 <script>
     async function getContentAPI(){
         try{
-            const responseAPI = await fetch('http://localhost:8765/COIN-APP/listarMoedas')
-            const dataAPI = await responseAPI.json()
+            const responseAPIListarMoedas = await fetch('http://localhost:8765/COIN-APP/listarMoedas')
+            const dataAPIListarMoedas = await responseAPIListarMoedas.json()
 
-            const responseAPI2 = await fetch('http://localhost:8765/COIN-APP/moedasDisponiveis')
-            const dataAPI2 = await responseAPI2.json()
-            
+            const responseAPIMoedasDisponiveis = await fetch('http://localhost:8765/COIN-APP/moedasDisponiveis')
+            const dataAPIMoedasDisponiveis = await responseAPIMoedasDisponiveis.json()            
 
-            listarMoedasParaReal(dataAPI)
-            preencherDropdown(dataAPI2)
+            listarMoedasParaReal(dataAPIListarMoedas)
+            preencherDropdown(dataAPIMoedasDisponiveis)
+
+            var selectMoedaBase = document.getElementById("moedaBase");
+            var selectMoedaAConverter = document.getElementById("moedaAConverter");
+            var from = selectMoedaBase.options[selectMoedaBase.index].text;
+            var to = selectMoedaAConverter.options[selectMoedaAConverter.index].text;
+            var qtdMoeda = document.getElementById("moedaFrom").value;
+
+            converterMoeda(from,to,qtd)
         }catch( error ){
             console.log( "GetContentAPI | ", error );
         }
@@ -31,37 +39,33 @@
         var selectMoedaBase = document.getElementById("moedaBase");
         var selectMoedaAConverter = document.getElementById("moedaAConverter");
 
-        for( let dado of dados ){
-            selectMoedaBase.options[selectMoedaBase.options.length] = new Option(dado, dado);
-            selectMoedaAConverter.options[selectMoedaAConverter.options.length] = new Option(dado, dado);
+        for( const dado of Object.keys(dados) ){
+            selectMoedaBase.options[selectMoedaBase.options.length] = new Option(dados[dado],dado);
+            selectMoedaAConverter.options[selectMoedaAConverter.options.length] = new Option(dados[dado],dado);
         }
 
     }
     function listarMoedasParaReal(dados){
         let output = ''
+        
         for( let dado of dados){
-             output +=` ${dado.name} -----> Valor: ${dado.bid}<br>`;
-            var moedaTo = document.getElementById("moedaTo");
-            var moedaFrom = document.getElementById("moedaFrom");
-            var moedaToLabel = document.getElementById("moedaToLabel");
-            var moedaFromLabel = document.getElementById("moedaFromLabel");
-            if(`${dado.code}` == "USD"){
-                moedaFrom.value = (`1.00`).toLocaleString('pt-br',{minimumFractionDigits: 2});
-
-                moedaTo.value =moedaFrom.value * `${dado.bid}`;
-
-
-                moedaFrom.addEventListener('input', function (evt) {
-                    moedaFrom.value.toLocaleString('pt-br',{minimumFractionDigits: 2});
-
-                    moedaTo.value =(moedaFrom.value * `${dado.bid}`).toLocaleString('pt-br',{minimumFractionDigits: 2});
-
-                                });
-            } 
+            output +=` ${dado.name} -----> Valor: ${dado.bid}<br>`;            
         }
 
-        document.querySelector('main').innerHTML = output
+        output+=`<br>`
 
+        document.querySelector('main').innerHTML = output
     }
 
+    async function converterMoeda(from,to,qtd){
+        
+        const responseAPIConverter = await fetch('http://localhost:8765/COIN-APP/converter/'+from+'/'+to+'/'+qtd)
+        const dataAPIConverter = await responseAPIConverter.json()  
+
+        var totalConvertido = `${dataAPIConverter.total}`
+
+        var moedaConvertida = document.getElementById("moedaTo");
+        moedaConvertida.value = totalConvertido;
+
+    }
 </script>

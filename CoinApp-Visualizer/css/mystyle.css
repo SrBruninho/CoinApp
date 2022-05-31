@@ -1,7 +1,11 @@
-select {
-    width: 100%;
-    padding: 16px 20px;
-    border: none;
+selectFrom {
+    padding: 4px 4px;
     border-radius: 4px;
-    background-color: #f1f1f1;
+    background-color: green;
+  }
+
+  selectTo {
+    padding: 4px 4px;
+    border-radius: 4px;
+    background-color: orangered
   }
