@@ -2,10 +2,14 @@
 </head>
 <body>
 <main></main>
-    <select name="moedaBase" id="moedaBase"></select>
-    <input type="text" id="moedaFrom" name="moedaFrom"> 
-    <select name="moedaAConverter"  id="moedaAConverter"></select>
+    <select name="moedaBase" onchange = "getValue()" id="moedaBase"></select>
+    <input type="text" oninput="readValue()" id="moedaFrom" name="moedaFrom"> 
+    <select name="moedaAConverter" onchange = "getValue2()" id="moedaAConverter"></select>
     <input type="text" id="moedaTo" name="moedaTo"><br><br>
+
+    Petróleo: <input type="text"  id="petroleoReal" name="petroleoReal"> 
+
+    
 
 </body>
 
@@ -21,13 +25,10 @@
             listarMoedasParaReal(dataAPIListarMoedas)
             preencherDropdown(dataAPIMoedasDisponiveis)
 
-            var selectMoedaBase = document.getElementById("moedaBase");
             var selectMoedaAConverter = document.getElementById("moedaAConverter");
-            var from = selectMoedaBase.options[selectMoedaBase.index].text;
-            var to = selectMoedaAConverter.options[selectMoedaAConverter.index].text;
-            var qtdMoeda = document.getElementById("moedaFrom").value;
+            readValue()
 
-            converterMoeda(from,to,qtd)
+             petroleoEmReal() 
         }catch( error ){
             console.log( "GetContentAPI | ", error );
         }
@@ -35,6 +36,41 @@
 
     getContentAPI()
 
+    function getValue(qtd){
+        var from = document.getElementById("moedaBase").value; 
+        var to = document.getElementById("moedaAConverter").value
+        var qtdMoeda = qtd == null ? qtdMoeda : document.getElementById("moedaFrom").value
+
+        converterMoeda(from,to,qtdMoeda)
+    }
+
+    async function petroleoEmReal(){
+        var petroleoValor = document.getElementById("petroleoReal"); 
+
+        const responseAPIConverter = await fetch('http://localhost:8765/COINAPP-BRENTOIL/petroleoDia/')
+        const dataAPIConverter = await responseAPIConverter.json()  
+
+        var brentRate = `${dataAPIConverter.brentRate}`
+
+        const responseAPIConverterP = await fetch('http://localhost:8765/COIN-APP/converter/USD/BRL/'+brentRate)
+        const dataAPIConverterP = await responseAPIConverterP.json()  
+
+        var brentRateConvertido= `${dataAPIConverterP.total}`
+        petroleoValor.value = brentRateConvertido
+    }
+
+    function getValue2(qtd){
+        var from = document.getElementById("moedaBase").value; 
+        var to = document.getElementById("moedaAConverter").value
+        var qtdMoeda = qtd == null ? 1 : document.getElementById("moedaFrom").value
+
+        converterMoeda(from,to,qtdMoeda)
+    }
+
+      function readValue(){
+        getValue(document.getElementById("moedaFrom").value)
+        return document.getElementById("moedaFrom").value;
+    }
     function preencherDropdown(dados){
         var selectMoedaBase = document.getElementById("moedaBase");
         var selectMoedaAConverter = document.getElementById("moedaAConverter");
@@ -68,4 +104,5 @@
         moedaConvertida.value = totalConvertido;
 
     }
+ 
 </script>

@@ -31,7 +31,7 @@ public class MoedaService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Moeda converterMoeda(String from, String to, int qtd) {
+	public Moeda converterMoeda(String from, String to, Double qtd) {
 		ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		try {
 				response = restTemplate.getForEntity(

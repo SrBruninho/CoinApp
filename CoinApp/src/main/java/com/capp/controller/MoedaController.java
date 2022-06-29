@@ -2,7 +2,6 @@ package com.capp.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.SortedSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,7 +26,7 @@ public class MoedaController {
 	}
 	
 	@GetMapping(value = "/converter/{from}/{to}/{qtd}")
-	public Moeda converterMoeda(@PathVariable String from, @PathVariable String to, @PathVariable int qtd) {
+	public Moeda converterMoeda(@PathVariable String from, @PathVariable String to, @PathVariable Double qtd) {
 		return moedaService.converterMoeda(from,to,qtd);
 	}
 

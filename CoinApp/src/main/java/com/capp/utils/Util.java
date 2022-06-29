@@ -67,7 +67,7 @@ public class Util {
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static Moeda converterEntradaAPIToMoeda(HashMap<Object, Object> p_hashMap, int qtd)   {
+	public static Moeda converterEntradaAPIToMoeda(HashMap<Object, Object> p_hashMap, Double qtd)   {
 		Moeda moeda = new Moeda();
 		
 		p_hashMap.entrySet().forEach(entry->{
@@ -83,7 +83,7 @@ public class Util {
 				moeda.setCreateDate(LocalDateTime.parse( valor.getValue(),
 						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));	
 			});	
-			moeda.setTotal(  moeda.getBid().multiply(BigDecimal.valueOf(qtd)));
+			moeda.setTotal(  moeda.getBid().multiply( BigDecimal.valueOf( qtd ) ) );
 		});
 		
 		return moeda;
