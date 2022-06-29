@@ -1,0 +1,14 @@
+server:
+  port: 8980
+brentoil:
+  config:
+    uri_commodities-api: https://commodities-api.com/api/latest?access_key=5l0y6a8fqnisck8xj8oawxuhppknca0gb6thfjtv8x08uitsy6gh6xcri6g1&symbols=BRENTOIL
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka  
+spring:
+  application:
+    name: coinapp-brentoil
+springdoc:
+  show-actuator: true
